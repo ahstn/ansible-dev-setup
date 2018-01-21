@@ -1,0 +1,20 @@
+---
+
+go_path: '{{home_dir}}/go'
+
+go_deps:
+  - url: github.com/ramya-rao-a/go-outline
+  - url: github.com/acroca/go-symbols
+  - url: github.com/nsf/gocode
+  - url: github.com/rogpeppe/godef
+  - url: golang.org/x/tools/cmd/godoc
+  - url: github.com/zmb3/gogetdoc
+  - url: github.com/golang/lint/golint
+  - url: github.com/fatih/gomodifytags
+  - url: github.com/uudashr/gopkgs/cmd/gopkgs
+  - url: golang.org/x/tools/cmd/gorename
+  - url: sourcegraph.com/sqs/goreturns
+  - url: github.com/cweill/gotests/...
+  - url: golang.org/x/tools/cmd/guru
+  - url: github.com/josharian/impl
+  - url: github.com/haya14busa/goplay/cmd/goplay

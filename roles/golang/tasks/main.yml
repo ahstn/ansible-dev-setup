@@ -1,0 +1,35 @@
+---
+
+- name: install golang package
+  yum:
+    name: golang
+    state: latest
+
+- name: define GOARCH
+  set_fact:
+    GOARCH: amd64
+  when: GOARCH is not defined
+
+- name: define GOOS
+  set_fact:
+    GOOS: linux
+  when: GOOS is not defined
+
+- name: create golang home
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: 0755
+  with_items:
+    - '{{ go_path }}'
+    - '{{ go_path }}/bin'
+    - '{{ go_path }}/pkg'
+    - '{{ go_path }}/src'
+
+- name: install common go dependencies
+  shell: 'go get -u {{ item.url }}'
+  environment:
+    GOPATH: '{{ GOPATH }}'
+    GOROOT: '{{ GOROOT }}'
+  with_items: '{{ go_deps }}'
+  changed_when: false
