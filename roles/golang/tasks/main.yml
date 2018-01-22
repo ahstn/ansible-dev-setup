@@ -1,9 +1,10 @@
 ---
 
 - name: install golang package
-  yum:
+  package:
     name: golang
     state: latest
+  become: true
 
 - name: define GOARCH
   set_fact:
