@@ -1,0 +1,23 @@
+---
+
+- name: check if jetbrains toolbox is installed
+  stat:
+    path: '{{ toolbox_dir }}'
+  register: toolbar_folder
+
+- name: download and extract jetbrains toolbox
+  unarchive:
+    src: '{{ toolbox_url }}'
+    dest: /tmp/
+    remote_src: yes
+  when: not toolbar_folder.stat.exists
+
+- name: move jetbrains toolbox folder
+  command: mv /tmp/jetbrains-toolbox-* {{ toolbox_dir }} && rm -rf /tmp/jetbrains-toolbox-*
+  when: not toolbar_folder.stat.exists
+
+- name: add application launcher
+  template:
+    src: desktop.j2
+    dest: '{{ toolbox_launcher_path }}'
+  when: not toolbar_folder.stat.exists

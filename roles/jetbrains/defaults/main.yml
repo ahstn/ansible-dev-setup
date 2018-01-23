@@ -1,0 +1,5 @@
+toolbox_version: 1.6.2914
+toolbox_url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-{{ toolbox_version }}.tar.gz
+
+toolbox_dir: ~/.local/share/JetBrains/Toolbox
+toolbox_launcher_path: ~/.local/share/applications/jetbrains-toolbox.desktop
