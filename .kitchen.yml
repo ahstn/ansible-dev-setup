@@ -1,0 +1,19 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  provision_command: sed -i '/tsflags=nodocs/d' /etc/yum.conf
+
+provisioner:
+  name: ansible_playbook
+  hosts: localhost
+  require_chef_for_busser: false
+  require_ruby_for_busser: false
+  ansible_verbosity: 2
+  ansible_verbose: true
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: default

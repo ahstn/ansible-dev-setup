@@ -1,0 +1,6 @@
+---
+- name: wrapper for kitchen testing
+  hosts: localhost
+  roles:
+    - golang
+    - vscode
