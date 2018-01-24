@@ -1,0 +1,18 @@
+---
+
+# No native copr support and I'd rather use this than add the .repo directly
+- name: enable theming copr # La Capitaine Icons + OSX-Arc
+  command: dnf copr enable tcg/themes
+  become: true
+
+- name: install packages
+  package:
+    name: '{{ item }}'
+    state: latest
+  become: true
+  with_items: '{{ packages }}'
+
+# Consider for KDE:
+#   - https://store.kde.org/p/1207344/ (Aex-Dark Panel Theme)
+#   - https://github.com/PapirusDevelopmentTeam/arc-kde
+#   - https://github.com/andreyorst/Breezemite
