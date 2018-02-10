@@ -15,6 +15,7 @@ provisioner:
 platforms:
   - name: centos-7.2
     driver_config:
+      username: kitchen
       image: williamyeh/ansible:centos7
       platform: centos
 

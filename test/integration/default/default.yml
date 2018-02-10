@@ -1,6 +1,7 @@
 ---
 - name: wrapper for kitchen testing
   hosts: localhost
+  remote_user: kitchen
   roles:
     - golang
-    # - vscode
+    - vscode
