@@ -1,6 +1,12 @@
 ---
 
-- name: install golang package
+- name: install go package dependencies
+  package:
+    name: git
+    state: latest
+  become: true
+
+- name: install go package
   package:
     name: golang
     state: latest
@@ -27,7 +33,7 @@
     - '{{ go_path }}/pkg'
     - '{{ go_path }}/src'
 
-- name: install common go dependencies
+- name: install common go tools
   shell: 'go get -u {{ item.url }}'
   environment:
     GOPATH: '{{ GOPATH }}'

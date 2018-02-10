@@ -3,4 +3,4 @@
   hosts: localhost
   roles:
     - golang
-    - vscode
+    # - vscode
