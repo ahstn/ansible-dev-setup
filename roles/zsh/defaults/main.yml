@@ -1,0 +1,11 @@
+---
+
+
+zsh_plugins:
+  - '"zsh-users/zsh-autosuggestions", defer:2'
+  - '"zsh-users/zsh-history-substring-search", defer:2'
+  - '"zsh-users/zsh-syntax-highlighting", defer:2'
+  - '"mafredri/zsh-async", from:github'
+  - '"sindresorhus/pure", from:github, use:pure.zsh, as:theme'
+
+zshrc_dest: "{{ lookup('env', 'HOME') }}/.zshrc"

@@ -30,3 +30,16 @@
   shell: /tmp/zplug-installer.sh
   args:
     creates: "{{ lookup('env','HOME') }}/.zplug"
+
+- name: Create .zshrc config
+  template:
+    src: zshrc.j2
+    dest: "{{ zshrc_dest }}"
+    owner: "{{ lookup('env','USER') }}"
+    backup: yes
+
+- name: Set zsh as default shell
+  user:
+    name: "{{ lookup('env','USER') }}"
+    shell: /bin/zsh
+  become: true
