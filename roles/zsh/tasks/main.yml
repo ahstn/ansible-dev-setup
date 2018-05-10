@@ -1,0 +1,32 @@
+---
+- name: Install zsh, git, wget packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - zsh
+    - git
+    - wget
+  become: yes
+  
+- name: Download zsh installer
+  get_url: 
+    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /tmp/zsh-installer.sh
+    mode: 0777
+
+- name: Execute the zsh-installer.sh
+  shell: /tmp/zsh-installer.sh
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+
+- name: Download zplug installer
+  get_url: 
+    url: https://raw.githubusercontent.com/zplug/installer/master/installer.zsh 
+    dest: /tmp/zplug-installer.sh
+    mode: 0777
+  
+- name: Execute the zplug-installer.sh
+  shell: /tmp/zplug-installer.sh
+  args:
+    creates: "{{ lookup('env','HOME') }}/.zplug"
