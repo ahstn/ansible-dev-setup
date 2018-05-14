@@ -1,0 +1,65 @@
+---
+
+- name: Enable Neovim repo for Ubuntu
+  apt_repository:
+    repo: ppa:neovim-ppa/stable
+    state: present
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install vim and neovim packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim
+    - neovim
+  become: yes
+  
+- name: Create directories for vim-plug
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ lookup('env','USER') }}"
+    mode: 0775
+  with_items:
+    - "{{ vim_plug_dir }}"
+    - "{{ nvim_plug_dir }}"
+
+- name: Download vim-plug
+  get_url: 
+    url: "{{ vim_plug_url }}"
+    dest: "{{ item }}"
+    mode: 0775
+  with_items:
+    - "{{ vim_plug_dest }}"
+    - "{{ nvim_plug_dest }}"
+
+- name: Create .vimrc config
+  template:
+    src: vimrc.j2
+    dest: "{{ vimrc_dest }}"
+    owner: "{{ lookup('env','USER') }}"
+    mode: 0775
+    backup: yes
+  when: vimrc_ansible_managed
+
+- name: Ensure Neovim config directory is present
+  file:
+    path: "{{ nvimrc_dir }}"
+    state: directory
+    owner: "{{ lookup('env','USER') }}"
+    mode: 0775
+
+- name: Symlink Vim and Neovim config
+  file:
+    src: "{{ vimrc_dest }}"
+    dest: "{{ nvimrc_dest }}"
+    state: link
+
+- name: Install Vim and Neovim plugins
+  shell: nvim -Esc "source {{ vimrc_dest }}" -c PlugInstall -c qa
+  with_items:
+    - vim
+    - neovim
+  when: vim_install_plugins
