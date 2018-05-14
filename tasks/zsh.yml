@@ -8,9 +8,9 @@
     - git
     - wget
   become: yes
-  
+
 - name: Download zsh installer
-  get_url: 
+  get_url:
     url: "{{ zsh_omz_url }}"
     dest: /tmp/zsh-installer.sh
     mode: 0777
@@ -21,11 +21,11 @@
     creates: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
 
 - name: Download zplug installer
-  get_url: 
+  get_url:
     url: "{{ zsh_zplug_url }}"
     dest: /tmp/zplug-installer.sh
     mode: 0777
-  
+
 - name: Execute the zplug-installer.sh
   shell: /tmp/zplug-installer.sh
   args:

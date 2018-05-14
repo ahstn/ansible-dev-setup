@@ -1,9 +1,0 @@
----
-
-vscode_repo_key: https://packages.microsoft.com/keys/microsoft.asc
-
-vscode_extensions:
-  - name: EditorConfig.EditorConfig
-  - name: akamud.vscode-theme-onedark
-  - name: lukehoban.Go
-  - name: octref.vetur

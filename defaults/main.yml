@@ -1,0 +1,63 @@
+---
+
+# Vim
+vimrc_ansible_managed: true
+vimrc_dest: "{{ lookup('env', 'HOME') }}/.vimrc"
+nvimrc_dir: "{{ lookup('env', 'HOME') }}/.config/nvim"
+nvimrc_dest: "{{ nvimrc_dir}}/init.vim"
+vim_plug_url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim_plug_dir: "{{ lookup('env', 'HOME') }}/.vim/autoload"
+vim_plug_dest: "{{ vim_plug_dir}}/plug.vim"
+nvim_plug_dir: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/autoload"
+nvim_plug_dest: "{{ nvim_plug_dir}}/plug.vim"
+vim_install_plugins: true
+vim_plugins:
+  - "mhinz/vim-startify"
+  - "tpope/vim-surround"
+  - "tpope/vim-commentary"
+  - "w0rp/ale"
+  - "editorconfig/editorconfig-vim"
+
+# ZSH
+zsh_ansible_managed: true
+zsh_dest: "{{ lookup('env', 'HOME') }}/.zshrc"
+zsh_editor: "vi"
+zsh_omz_url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+zsh_zplug_url: https://raw.githubusercontent.com/zplug/installer/master/installer.zsh
+zsh_plugins:
+  - '"zsh-users/zsh-autosuggestions", defer:2'
+  - '"zsh-users/zsh-history-substring-search", defer:2'
+  - '"zsh-users/zsh-syntax-highlighting", defer:2'
+  - '"mafredri/zsh-async", from:github'
+  - '"sindresorhus/pure", from:github, use:pure.zsh, as:theme'
+
+# Go
+go_path: "{{ lookup('env','USER') }}/go"
+go_deps:
+  - url: github.com/ramya-rao-a/go-outline
+  - url: github.com/acroca/go-symbols
+  - url: github.com/nsf/gocode
+  - url: github.com/rogpeppe/godef
+  - url: golang.org/x/tools/cmd/godoc
+  - url: github.com/zmb3/gogetdoc
+  - url: github.com/golang/lint/golint
+  - url: github.com/fatih/gomodifytags
+  - url: github.com/uudashr/gopkgs/cmd/gopkgs
+  - url: golang.org/x/tools/cmd/gorename
+  - url: sourcegraph.com/sqs/goreturns
+  - url: github.com/cweill/gotests/...
+  - url: golang.org/x/tools/cmd/guru
+  - url: github.com/josharian/impl
+  - url: github.com/haya14busa/goplay/cmd/goplay
+
+# JetBrains Toolbox
+toolbox_version: 1.6.2914
+toolbox_url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-{{ toolbox_version }}.tar.gz
+toolbox_dir: ~/.local/share/JetBrains/Toolbox
+toolbox_launcher_path: ~/.local/share/applications/jetbrains-toolbox.desktop
+
+
+# VS Code
+vscode_repo_key: https://packages.microsoft.com/keys/microsoft.asc
+vscode_extensions:
+  - name: EditorConfig.EditorConfig

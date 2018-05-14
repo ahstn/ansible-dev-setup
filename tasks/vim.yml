@@ -15,7 +15,7 @@
     - vim
     - neovim
   become: yes
-  
+
 - name: Create directories for vim-plug
   file:
     path: "{{ item }}"
@@ -27,7 +27,7 @@
     - "{{ nvim_plug_dir }}"
 
 - name: Download vim-plug
-  get_url: 
+  get_url:
     url: "{{ vim_plug_url }}"
     dest: "{{ item }}"
     mode: 0775
