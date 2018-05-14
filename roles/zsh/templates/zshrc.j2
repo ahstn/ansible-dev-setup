@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 source ~/.zplug/init.zsh
 
 {% for plugin in zsh_plugins -%}
@@ -6,6 +8,8 @@ zplug {{ plugin }}
 
 zplug check || zplug install
 zplug load
+
+export EDITOR="{{ zsh_editor }}"
 
 SAVEHIST=1000
 HISTFILE=~/.zsh_history

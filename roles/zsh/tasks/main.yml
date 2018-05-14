@@ -11,7 +11,7 @@
   
 - name: Download zsh installer
   get_url: 
-    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    url: "{{ zsh_omz_url }}"
     dest: /tmp/zsh-installer.sh
     mode: 0777
 
@@ -22,7 +22,7 @@
 
 - name: Download zplug installer
   get_url: 
-    url: https://raw.githubusercontent.com/zplug/installer/master/installer.zsh 
+    url: "{{ zsh_zplug_url }}"
     dest: /tmp/zplug-installer.sh
     mode: 0777
   
@@ -34,9 +34,10 @@
 - name: Create .zshrc config
   template:
     src: zshrc.j2
-    dest: "{{ zshrc_dest }}"
+    dest: "{{ zsh_dest }}"
     owner: "{{ lookup('env','USER') }}"
     backup: yes
+  when: zsh_ansible_managed
 
 - name: Set zsh as default shell
   user:
