@@ -1,0 +1,21 @@
+---
+
+vimrc_ansible_managed: true
+vimrc_dest: "{{ lookup('env', 'HOME') }}/.vimrc"
+nvimrc_dir: "{{ lookup('env', 'HOME') }}/.config/nvim"
+nvimrc_dest: "{{ nvimrc_dir}}/init.vim"
+
+vim_plug_url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim_plug_dir: "{{ lookup('env', 'HOME') }}/.vim/autoload"
+vim_plug_dest: "{{ vim_plug_dir}}/plug.vim"
+nvim_plug_dir: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/autoload"
+nvim_plug_dest: "{{ nvim_plug_dir}}/plug.vim"
+
+vim_plugins:
+  - "mhinz/vim-startify"
+  - "tpope/vim-surround"
+  - "tpope/vim-commentary"
+  - "w0rp/ale"
+  - "editorconfig/editorconfig-vim"
+
+vim_install_plugins: true
