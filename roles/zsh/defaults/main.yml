@@ -1,0 +1,15 @@
+---
+zsh_ansible_managed: true
+
+zsh_dest: "{{ lookup('env', 'HOME') }}/.zshrc"
+zsh_editor: "vi"
+
+zsh_omz_url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+zsh_zplug_url: https://raw.githubusercontent.com/zplug/installer/master/installer.zsh
+zsh_plugins:
+  - '"zsh-users/zsh-autosuggestions", defer:2'
+  - '"zsh-users/zsh-history-substring-search", defer:2'
+  - '"zsh-users/zsh-syntax-highlighting", defer:2'
+  - '"mafredri/zsh-async", from:github'
+  - '"sindresorhus/pure", from:github, use:pure.zsh, as:theme'
+

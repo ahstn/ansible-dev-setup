@@ -1,0 +1,25 @@
+# {{ ansible_managed }}
+
+source ~/.zplug/init.zsh
+
+{% for plugin in zsh_plugins -%}
+zplug {{ plugin }}
+{% endfor %}
+
+zplug check || zplug install
+zplug load
+
+export EDITOR="{{ zsh_editor }}"
+
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
+setopt auto_cd                # If a dir is typed without cd, go there
+setopt append_history         # Allow multiple sessions to append to history
+setopt extended_history       # Save timestamp of command and duration
+setopt inc_append_history     # Don't wait for shell exit to add commands
+setopt hist_ignore_all_dups   # Don't write duplicate entries to history
+setopt hist_no_store          # Don't write the history command to history
+setopt complete_in_word       # Allow completion from within a word
+setopt always_to_end          # Move to the end of a word when completing
+
+[[ -r "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
