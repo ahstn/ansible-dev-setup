@@ -32,7 +32,7 @@ zsh_plugins:
   - '"sindresorhus/pure", from:github, use:pure.zsh, as:theme'
 
 # Go
-go_path: "{{ lookup('env','USER') }}/go"
+go_path: "{{ lookup('env','HOME') }}/go"
 go_deps:
   - url: github.com/ramya-rao-a/go-outline
   - url: github.com/acroca/go-symbols

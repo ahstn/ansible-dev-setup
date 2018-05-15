@@ -2,9 +2,11 @@
 
 - name: install golang package
   package:
-    name: golang
-    state: latest
+    name: "{{ item }}"
   become: true
+  with_items:
+    - golang
+    - git
 
 - name: create golang home
   file:
@@ -17,13 +19,16 @@
     - '{{ go_path }}/pkg'
     - '{{ go_path }}/src'
 
-- lineinfile:
+- name: add GOPATH to user's environment if missing
+  lineinfile:
     path: "{{ lookup('env','HOME') }}/.profile"
     regexp: '^GOPATH='
     line: "GOPATH={{ go_path}}"
+    state: present
+    create: true
 
 - name: install common go dependencies
-  shell: 'go get -u {{ item.url }}'
+  command: 'go get -u {{ item.url }}'
   environment:
     GOPATH: '{{ GOPATH }}'
     GOROOT: '{{ GOROOT }}'
