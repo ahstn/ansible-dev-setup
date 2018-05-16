@@ -18,34 +18,23 @@
     - { url: "{{ zsh_omz_url }}", dest: '/tmp/zsh-installer.sh' }
     - { url: "{{ zsh_zplug_url }}", dest: '/tmp/zplug-installer.sh' }
 
-# - name: check if oh-my-zsh is installed
-#   stat:
-#     path: "{{ dev_home }}/.oh-my-zsh"
-#   register: p
-
-# TODO: Figure out why .isdir doesn't work
 - name: Execute the zsh-installer.sh
   shell: /tmp/zsh-installer.sh
   args:
     creates: "{{ dev_home }}/.oh-my-zsh/"
     executable: /bin/zsh
-  # when: p.stat.isdir is defined and not p.stat.isdir
-  tags:
-    - skip_ansible_lint
 
 - name: Execute the zplug-installer.sh
   shell: /tmp/zplug-installer.sh
   environment:
     TERM: xterm
-    LANG: en_GB.UTF-8
-    LANGUAGE: en_GB:en
-    LC_ALL: en_GB.UTF-8
+    LANG: en_US.UTF-8
+    LANGUAGE: en_US:en
+    LC_ALL: en_US.UTF-8
   args:
     creates: "{{ dev_home }}/.zplug/"
     executable: /bin/zsh
-  # when: q.stat.isdir is defined and not q.stat.isdir
-  tags:
-    - skip_ansible_lint
+  # ignore_errors: true
 
 - name: Create .zshrc config
   template:
