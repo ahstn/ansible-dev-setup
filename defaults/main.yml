@@ -14,6 +14,8 @@ vim_plug_dir: "{{ dev_home }}/.vim/autoload"
 vim_plug_dest: "{{ vim_plug_dir}}/plug.vim"
 nvim_plug_dir: "{{ dev_home }}/.local/share/nvim/site/autoload"
 nvim_plug_dest: "{{ nvim_plug_dir}}/plug.vim"
+nvim_repo_url: https://copr-be.cloud.fedoraproject.org/results/dperson/neovim/epel-7-$basearch/
+nvim_repo_gpg: https://copr-be.cloud.fedoraproject.org/results/dperson/neovim/pubkey.gpg
 vim_install_plugins: true
 vim_plugins:
   - "mhinz/vim-startify"
