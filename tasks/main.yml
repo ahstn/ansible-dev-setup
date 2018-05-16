@@ -1,4 +1,7 @@
 ---
 
 - include: golang.yml
-  tags: [ zsh, install ]
+  tags: [ dev, programming ]
+
+- include: zsh.yml
+  tags: [ zsh, cli, terminal ]

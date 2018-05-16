@@ -11,36 +11,52 @@
 
 - name: Download zsh installer
   get_url:
-    url: "{{ zsh_omz_url }}"
-    dest: /tmp/zsh-installer.sh
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
     mode: 0777
+  with_items:
+    - { url: "{{ zsh_omz_url }}", dest: '/tmp/zsh-installer.sh' }
+    - { url: "{{ zsh_zplug_url }}", dest: '/tmp/zplug-installer.sh' }
 
+# - name: check if oh-my-zsh is installed
+#   stat:
+#     path: "{{ dev_home }}/.oh-my-zsh"
+#   register: p
+
+# TODO: Figure out why .isdir doesn't work
 - name: Execute the zsh-installer.sh
   shell: /tmp/zsh-installer.sh
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
-
-- name: Download zplug installer
-  get_url:
-    url: "{{ zsh_zplug_url }}"
-    dest: /tmp/zplug-installer.sh
-    mode: 0777
+    creates: "{{ dev_home }}/.oh-my-zsh/"
+    executable: /bin/zsh
+  # when: p.stat.isdir is defined and not p.stat.isdir
+  tags:
+    - skip_ansible_lint
 
 - name: Execute the zplug-installer.sh
   shell: /tmp/zplug-installer.sh
+  environment:
+    TERM: xterm
+    LANG: en_GB.UTF-8
+    LANGUAGE: en_GB:en
+    LC_ALL: en_GB.UTF-8
   args:
-    creates: "{{ lookup('env','HOME') }}/.zplug"
+    creates: "{{ dev_home }}/.zplug/"
+    executable: /bin/zsh
+  # when: q.stat.isdir is defined and not q.stat.isdir
+  tags:
+    - skip_ansible_lint
 
 - name: Create .zshrc config
   template:
     src: zshrc.j2
     dest: "{{ zsh_dest }}"
-    owner: "{{ lookup('env','USER') }}"
+    owner: "{{ dev_user }}"
     backup: yes
   when: zsh_ansible_managed
 
 - name: Set zsh as default shell
   user:
-    name: "{{ lookup('env','USER') }}"
+    name: "{{ dev_user }}"
     shell: /bin/zsh
   become: true
