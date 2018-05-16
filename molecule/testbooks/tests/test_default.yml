@@ -1,9 +1,15 @@
 ---
 
-# Go
 package:
   golang:
     installed: true
+  zsh:
+    installed: true
+  git:
+    installed: true
+  wget:
+    installed: true
+
 
 file:
   /home/tester/.profile:
@@ -26,5 +32,20 @@ file:
   /home/tester/go/src/golang.org/x/tools/cmd/guru:
     exists: true
     mode: "0755"
+    owner: tester
+    filetype: directory
+  /home/tester/.zshrc:
+    exists: true
+    mode: "0644"
+    owner: tester
+    filetype: file
+    contains:
+      - 'source ~/.zplug/init.zsh'
+  /home/tester/.zplug:
+    exists: true
+    owner: tester
+    filetype: directory
+  /home/tester/.oh-my-zsh:
+    exists: true
     owner: tester
     filetype: directory

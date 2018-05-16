@@ -11,12 +11,12 @@ lint:
 platforms:
   - name: instance
     image: centos:7
+    command: bash -c 'while true; do sleep 1; done'
 
 provisioner:
   name: ansible
   env:
-    USER: tester
-    HOME: /home/tester
+    TERM: xterm
   playbooks:
     create: ../testbooks/create.yml
     prepare: ../testbooks/prepare.yml
