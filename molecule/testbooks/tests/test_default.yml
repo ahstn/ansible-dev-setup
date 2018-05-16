@@ -1,0 +1,30 @@
+---
+
+# Go
+package:
+  golang:
+    installed: true
+
+file:
+  /home/tester/.profile:
+    exists: true
+    mode: "0644"
+    owner: tester
+    filetype: file
+    contains:
+      - 'GOPATH=/home/tester/go'
+  /home/tester/go:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: directory
+  /home/tester/go/src:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: directory
+  /home/tester/go/src/golang.org/x/tools/cmd/guru:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: directory

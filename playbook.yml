@@ -3,7 +3,7 @@
   connection: local
   gather_facts: true
   vars_files:
-    - defaults/main.yaml
+    - defaults/main.yml
   vars:
     vimrc_ansible_managed: true
     vim_install_plugins: true

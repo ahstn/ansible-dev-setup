@@ -1,21 +1,34 @@
 ---
 dependency:
   name: galaxy
+
 driver:
   name: docker
+
 lint:
   name: yamllint
+
 platforms:
   - name: instance
     image: centos:7
+
 provisioner:
   name: ansible
+  env:
+    USER: tester
+    HOME: /home/tester
+  playbooks:
+    create: ../testbooks/create.yml
+    prepare: ../testbooks/prepare.yml
+    converge: ../testbooks/converge.yml
+    verify: ../testbooks/verify.yml
+    destroy: ../testbooks/destroy.yml
   lint:
     name: ansible-lint
+
 scenario:
   name: default
+
 verifier:
   name: goss
-  lint:
-    name: flake8
-    enabled: false
+  directory: ../testbooks/tests
