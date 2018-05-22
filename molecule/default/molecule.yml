@@ -1,0 +1,34 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint:
+  name: yamllint
+
+platforms:
+  - name: instance
+    image: centos:7
+    command: bash -c 'while true; do sleep 1; done'
+
+provisioner:
+  name: ansible
+  env:
+    TERM: xterm
+  playbooks:
+    create: ../testbooks/create.yml
+    prepare: ../testbooks/prepare.yml
+    converge: ../testbooks/converge.yml
+    verify: ../testbooks/verify.yml
+    destroy: ../testbooks/destroy.yml
+  lint:
+    name: ansible-lint
+
+scenario:
+  name: default
+
+verifier:
+  name: goss
+  directory: ../testbooks/tests

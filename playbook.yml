@@ -2,12 +2,12 @@
 - hosts: localhost
   connection: local
   gather_facts: true
+  vars_files:
+    - defaults/main.yml
   vars:
     vimrc_ansible_managed: true
     vim_install_plugins: true
     zsh_ansible_managed: true
     zsh_editor: "vim"
-  roles:
-    - vim
-    - zsh
-    - golang
+  tasks:
+    - include: tasks/golang.yml

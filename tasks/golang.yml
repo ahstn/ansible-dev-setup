@@ -1,0 +1,52 @@
+---
+
+- name: install golang package
+  package:
+    name: "{{ item }}"
+  become: true
+  with_items:
+    - golang
+    - git
+
+- name: create golang home
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: "{{ dev_user }}"
+    group: "{{ dev_user }}"
+    mode: 0755
+  with_items:
+    - '{{ go_path }}'
+    - '{{ go_path }}/bin'
+    - '{{ go_path }}/pkg'
+    - '{{ go_path }}/src'
+
+- name: add GOPATH to user's environment if missing
+  lineinfile:
+    path: "{{ dev_home }}/.profile"
+    regexp: '^GOPATH='
+    line: "GOPATH={{ go_path }}"
+    owner: "{{ dev_user }}"
+    mode: 0644
+    state: present
+    create: true
+
+- name: check if common go dependencies exist
+  stat:
+    path: "{{ go_path }}/src/{{ item.url }}"
+  register: results
+  loop: "{{ go_deps }}"
+
+- name: copy exist results into `go_deps` list
+  set_fact:
+    go_deps: "{{ results }}"
+
+- name: install common go dependencies (log hides items)
+  command: 'go get -u {{ item.item.url }}'
+  environment:
+    GOPATH: '{{ go_path }}'
+  when: not item.stat.exists
+  loop: "{{ go_deps.results }}"
+  no_log: true
+  become: true
+  become_user: "{{ dev_user }}"

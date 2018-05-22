@@ -1,0 +1,10 @@
+---
+
+- include: golang.yml
+  tags: [ dev, programming ]
+
+- include: zsh.yml
+  tags: [ zsh, cli, terminal ]
+
+- include: vim.yml
+  tags: [ vim, cli, terminal ]

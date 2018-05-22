@@ -1,0 +1,75 @@
+---
+
+package:
+  golang:
+    installed: true
+  git:
+    installed: true
+  neovim:
+    installed: true
+  # vim-enhanced on RHEL
+  # vim:
+  #   installed: true
+  wget:
+    installed: true
+  zsh:
+    installed: true
+
+
+file:
+  # Go
+  /home/tester/.profile:
+    exists: true
+    mode: "0644"
+    owner: tester
+    filetype: file
+    contains:
+      - 'GOPATH=/home/tester/go'
+  /home/tester/go:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: directory
+  /home/tester/go/src:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: directory
+  /home/tester/go/src/golang.org/x/tools/cmd/guru:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: directory
+
+  # ZSH
+  /home/tester/.zshrc:
+    exists: true
+    mode: "0644"
+    owner: tester
+    filetype: file
+    contains:
+      - 'source ~/.zplug/init.zsh'
+  /home/tester/.zplug:
+    exists: true
+    owner: tester
+    filetype: directory
+  /home/tester/.oh-my-zsh:
+    exists: true
+    owner: tester
+    filetype: directory
+
+  # Vim
+  /home/tester/.vimrc:
+    exists: true
+    mode: "0644"
+    owner: tester
+    filetype: file
+  /home/tester/.config/nvim/init.vim:
+    exists: true
+    owner: tester
+    filetype: symlink
+  /home/tester/.vim/autoload/plug.vim:
+    exists: true
+    mode: "0755"
+    owner: tester
+    filetype: file

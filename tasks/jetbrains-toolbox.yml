@@ -18,6 +18,6 @@
 
 - name: add application launcher
   template:
-    src: desktop.j2
+    src: jetbrains-desktop.j2
     dest: '{{ toolbox_launcher_path }}'
   when: not toolbar_folder.stat.exists

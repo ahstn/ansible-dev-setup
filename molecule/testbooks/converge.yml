@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    dev_user: tester
+    dev_home: /home/tester
+  roles:
+    - role: ansible-dev-setup

@@ -7,6 +7,24 @@
   become: yes
   when: ansible_distribution == 'Ubuntu'
 
+- name: Enable Neovim repo for CentOS/RHEL
+  yum_repository:
+    name:
+    baseurl: "{{ nvim_repo_url }}"
+    gpgkey:  "{{ nvim_repo_gpg }}"
+    gpgcheck: yes
+    skip_if_unavailable: yes
+    state: present
+  become: yes
+  when: ansible_distribution == 'RedHat'
+
+- name: Install EPEL for Neovim on CentOS/RHEL
+  package:
+    name: epel-release
+    state: present
+  become: yes
+  when: ansible_distribution == 'RedHat'
+
 - name: Install vim and neovim packages
   package:
     name: "{{ item }}"
@@ -15,19 +33,19 @@
     - vim
     - neovim
   become: yes
-  
+
 - name: Create directories for vim-plug
   file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ lookup('env','USER') }}"
+    owner: "{{ dev_user }}"
     mode: 0775
   with_items:
     - "{{ vim_plug_dir }}"
     - "{{ nvim_plug_dir }}"
 
 - name: Download vim-plug
-  get_url: 
+  get_url:
     url: "{{ vim_plug_url }}"
     dest: "{{ item }}"
     mode: 0775
@@ -39,7 +57,7 @@
   template:
     src: vimrc.j2
     dest: "{{ vimrc_dest }}"
-    owner: "{{ lookup('env','USER') }}"
+    owner: "{{ dev_user }}"
     mode: 0775
     backup: yes
   when: vimrc_ansible_managed
@@ -48,7 +66,7 @@
   file:
     path: "{{ nvimrc_dir }}"
     state: directory
-    owner: "{{ lookup('env','USER') }}"
+    owner: "{{ dev_user }}"
     mode: 0775
 
 - name: Symlink Vim and Neovim config
@@ -57,9 +75,10 @@
     dest: "{{ nvimrc_dest }}"
     state: link
 
-- name: Install Vim and Neovim plugins
-  shell: nvim -Esc "source {{ vimrc_dest }}" -c PlugInstall -c qa
-  with_items:
-    - vim
-    - neovim
-  when: vim_install_plugins
+# This would be a nice to have, but isn't completely necessary
+# - name: Install Vim and Neovim plugins
+#   shell: "{{ item }} -Esc source {{ vimrc_dest }} -c PlugInstall -c qa"
+#   with_items:
+#     - vim
+#     - nvim
+#   when: vim_install_plugins

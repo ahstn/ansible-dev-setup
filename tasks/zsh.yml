@@ -8,39 +8,44 @@
     - git
     - wget
   become: yes
-  
+
 - name: Download zsh installer
-  get_url: 
-    url: "{{ zsh_omz_url }}"
-    dest: /tmp/zsh-installer.sh
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
     mode: 0777
+  with_items:
+    - { url: "{{ zsh_omz_url }}", dest: '/tmp/zsh-installer.sh' }
+    - { url: "{{ zsh_zplug_url }}", dest: '/tmp/zplug-installer.sh' }
 
 - name: Execute the zsh-installer.sh
   shell: /tmp/zsh-installer.sh
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+    creates: "{{ dev_home }}/.oh-my-zsh/"
+    executable: /bin/zsh
 
-- name: Download zplug installer
-  get_url: 
-    url: "{{ zsh_zplug_url }}"
-    dest: /tmp/zplug-installer.sh
-    mode: 0777
-  
 - name: Execute the zplug-installer.sh
   shell: /tmp/zplug-installer.sh
+  environment:
+    TERM: xterm
+    LANG: en_US.UTF-8
+    LANGUAGE: en_US:en
+    LC_ALL: en_US.UTF-8
   args:
-    creates: "{{ lookup('env','HOME') }}/.zplug"
+    creates: "{{ dev_home }}/.zplug/"
+    executable: /bin/zsh
+  # ignore_errors: true
 
 - name: Create .zshrc config
   template:
     src: zshrc.j2
     dest: "{{ zsh_dest }}"
-    owner: "{{ lookup('env','USER') }}"
+    owner: "{{ dev_user }}"
     backup: yes
   when: zsh_ansible_managed
 
 - name: Set zsh as default shell
   user:
-    name: "{{ lookup('env','USER') }}"
+    name: "{{ dev_user }}"
     shell: /bin/zsh
   become: true
