@@ -1,0 +1,33 @@
+# Python CircleCI 2.0 configuration file
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.1
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install pyopenssl docker molecule
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-
+        
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            molecule test
+          
