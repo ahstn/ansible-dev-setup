@@ -4,6 +4,10 @@ Provision development devices or virtual machines using [Ansible]
 ### Requirements
 * [Ansible] (use bootstrap script if needed)
 
+### Platforms Supported
+Currently only CentOS 7 is tested, but it should also work on Debian & Ubuntu. 
+In the future more distros will be tested for.
+
 ## Usage
 Once the playbook has been configured with your preferred roles and variables, 
 the provision can be initiated by running the following command:
@@ -17,13 +21,13 @@ which is required when installing packages, modifying system files and such.
 ### Tasks
 The role contains many tasks, each for installing and setting up a specific tool. They are as follows:
 
-| Name                | Description                                                   |
-|---------------------|---------------------------------------------------------------|
-| `golang`            | Installs the Go programming language and some common packages |
-| `jetbrains-toolbox` | Installs Jetbrains' Toolbox                                   |
-| `vim`               | Installs Vim, Vim-Plug and the template .vimrc                |
-| `vscode`            | Installs Visual Studio Code                                   |
-| `zsh`               | Installs ZSH, zplug and the template .zshrc                   |
+| Name                  | Description                                                   |
+|-----------------------|---------------------------------------------------------------|
+| [`golang`]            | Installs the Go programming language and some common packages |
+| [`jetbrains-toolbox`] | Installs Jetbrains' Toolbox                                   |
+| [`vim`]               | Installs Vim, [vim-plug] and the template .vimrc              |
+| [`vscode`]            | Installs Visual Studio Code                                   |
+| [`zsh`]               | Installs ZSH, [zplug] and the template .zshrc                 |
 
 ### Variables
 The role utilises many variables for running, which can be found in [defaults/main.yml], 
@@ -64,6 +68,13 @@ Setup of the Docker test environments, provisioning and verification can also be
 For more options, view the [Molecule Docs] or run `molecule -h`
 
 [Ansible]: https://www.ansible.com/
+[`golang`]: ./tasks/golang.yml
+[`jetbrains-toolbox`]: ./tasks/jetbrains-toolbox.yml
+[`vim`]: ./tasks/vim.yml
+[`vscode`]: ./tasks/vscode.yml
+[`zsh`]: ./tasks/zsh.yml
+[vim-plug]: https://github.com/junegunn/vim-plug
+[zplug]: https://github.com/zplug/zplug
 [defaults/main.yml]: ./defaults/main.yml
 [Goss]: https://github.com/aelsabbahy/goss
 [Docker]: https://docker.com
