@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.5-node-browsers
+    steps:
+      - checkout
+      - run: python install docker pyopenssl molecule
+      - run: molecule test
