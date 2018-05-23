@@ -1,5 +1,9 @@
-# Ansible Dev
-Provision development devices or virtual machines using [Ansible]
+<img src="https://i.imgur.com/yKtGfSa.png" align="left" width="128px" height="128px"/>
+
+### **Ansible Dev Setup**
+> *Provision development devices or virtual machines using [Ansible]*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Requirements
 * [Ansible] (use bootstrap script if needed)
