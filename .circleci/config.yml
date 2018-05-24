@@ -1,3 +1,4 @@
+---
 # Python CircleCI 2.0 configuration file
 #
 version: 2
@@ -9,19 +10,19 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
+            python3 -m venv .venv
             . venv/bin/activate
             pip install -r requirements.txt
       - save_cache:
           paths:
-            - ./venv
+            - ./.venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            . .venv/bin/activate
             molecule test

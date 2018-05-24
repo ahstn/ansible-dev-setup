@@ -23,6 +23,8 @@
   args:
     creates: "{{ dev_home }}/.oh-my-zsh/"
     executable: /bin/zsh
+  tags:
+    - skip_ansible_lint
 
 - name: Execute the zplug-installer.sh
   shell: /tmp/zplug-installer.sh
@@ -34,7 +36,8 @@
   args:
     creates: "{{ dev_home }}/.zplug/"
     executable: /bin/zsh
-  # ignore_errors: true
+  tags:
+    - skip_ansible_lint
 
 - name: Create .zshrc config
   template:
