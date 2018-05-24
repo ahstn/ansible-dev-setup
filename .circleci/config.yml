@@ -22,7 +22,17 @@ jobs:
             - ./.venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: run tests
+          name: create test instance(s)
           command: |
             . .venv/bin/activate
             molecule test
+      - run:
+          name: provision test instance(s)
+          command: |
+            . .venv/bin/activate
+            molecule converge
+      - run:
+          name: verify test instance(s)
+          command: |
+            . .venv/bin/activate
+            molecule verify
