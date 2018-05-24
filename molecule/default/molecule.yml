@@ -31,4 +31,6 @@ scenario:
 
 verifier:
   name: goss
+  lint:
+    name: yamllint
   directory: ../testbooks/tests
