@@ -8,31 +8,7 @@ jobs:
       - image: circleci/python:3.6.1
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv .venv
-            . .venv/bin/activate
-            pip install -r requirements.txt
-      - save_cache:
-          paths:
-            - ./.venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-      - run:
-          name: create test instance(s)
-          command: |
-            . .venv/bin/activate
-            molecule test
-      - run:
-          name: provision test instance(s)
-          command: |
-            . .venv/bin/activate
-            molecule converge
-      - run:
-          name: verify test instance(s)
-          command: |
-            . .venv/bin/activate
-            molecule verify
+      - run: pip install -r requirements.txt
+      - run: molecule test
+      - run: molecule converge
+      - run: molecule verify
