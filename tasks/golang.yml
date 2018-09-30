@@ -1,5 +1,16 @@
 ---
 
+- name: install go
+  yum_repository:
+    name: go-repo
+    description: go-repo
+    file: go-repo
+    baseurl: https://mirror.go-repo.io/fedora/$releasever/$basearch/
+    gpgcheck: yes
+    gpgkey: https://mirror.go-repo.io/fedora/RPM-GPG-KEY-GO-REPO
+  become: true
+  when: ansible_os_family == "RedHat"
+
 - name: install golang package
   package:
     name: "{{ item }}"

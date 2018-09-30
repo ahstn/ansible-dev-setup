@@ -1,5 +1,5 @@
-# Python CircleCI 2.0 configuration file
-#
+---
+
 version: 2
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-
+            - v1-dependencies-
 
       - run:
           name: install dependencies
@@ -24,10 +24,9 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-
-        
+
       - run:
           name: run tests
           command: |
             . venv/bin/activate
             molecule test
-          
